@@ -70,12 +70,10 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="wrapper">
-        <!-- Sidebar -->
         <div class="sidebar" data-background-color="dark">
             <div class="sidebar-logo">
-                <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="{{ route('admin.dashboard') }}" class="logo"> <!-- Mengubah href ke rute dashboard -->
+                    <a href="{{ route('admin.dashboard') }}" class="logo">
                         <img src="{{ asset('assets/img/Wan Logo.png') }}" alt="navbar brand" class="navbar-brand"
                             height="30" />
                         <p class="mt-3" style="color: white">AN Teknologi Intern</p>
@@ -92,7 +90,6 @@
                         <i class="gg-more-vertical-alt"></i>
                     </button>
                 </div>
-                <!-- End Logo Header -->
             </div>
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
@@ -122,35 +119,35 @@
                             </span>
                             <h4 class="text-section">Components</h4>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('employees.index') ? 'active' : '' }}"">
+                        <li class="nav-item {{ request()->routeIs('employees.index', 'employees.create', 'employees.edit') ? 'active' : '' }}">
                             <a href="{{ route('employees.index') }}">
                                 <i class="fas fa-user-tie"></i>
                                 <p>Employee</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('clients.index') ? 'active' : '' }}"">
+                        <li class="nav-item {{ request()->routeIs('clients.index', 'clients.create', 'clients.edit') ? 'active' : '' }}">
                             <a href="{{ route('clients.index') }}">
                                 <i class="fas fa-handshake"></i>
                                 <p>Clients</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('projects.index') ? 'active' : '' }}"">
+                        <li class="nav-item {{ request()->routeIs('projects.index', 'projects.create', 'projects.edit') ? 'active' : '' }}">
                             <a href="{{ route('projects.index') }}">
                                 <i class="fas fa-tasks"></i>
                                 <p>Projects</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('teams.index') ? 'active' : '' }}"">
+                        <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
                             <a href="{{ route('teams.index') }}">
                                 <i class="fas fa-user-friends"></i>
                                 <p>Teams</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('team-members.index') ? 'active' : '' }}"">
+                        <li class="nav-item {{ request()->routeIs('team-members.index', 'team-members.create', 'team-members.edit') ? 'active' : '' }}">
                             <a href="{{ route('team-members.index') }}">
                                 <i class="fas fa-users"></i>
                                 <p>Team Members</p>
@@ -161,13 +158,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- End Sidebar -->
-
         <div class="main-panel">
             <div class="main-header">
                 <div class="main-header-logo">
-                    <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
                         <a href="index.html" class="logo">
                             <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand"
@@ -185,9 +178,7 @@
                             <i class="gg-more-vertical-alt"></i>
                         </button>
                     </div>
-                    <!-- End Logo Header -->
                 </div>
-                <!-- Navbar Header -->
                 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
                     <div class="container-fluid">
                         <nav
@@ -201,7 +192,6 @@
                                         <option value="{{ route('projects.index') }}">Project</option>
                                         <option value="{{ route('teams.index') }}">Team</option>
                                         <option value="{{ route('team-members.index') }}">Team Member</option>>
-                                        <!-- Add more options as needed -->
                                     </select>
                                 </div>
                             </form>
@@ -216,10 +206,7 @@
                                 }
                             </script>
                         </nav>
-
                         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-
-
                             <li class="nav-item topbar-user dropdown hidden-caret">
                                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                                     aria-expanded="false">
@@ -250,16 +237,14 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#" id="logout-btn">Logout</a>
-
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                             </form>
                                             <script>
                                                 document.getElementById('logout-btn').addEventListener('click', function(event) {
-                                                    event.preventDefault(); // Prevent default action of the link
+                                                    event.preventDefault();
 
-                                                    // SweetAlert2 confirmation dialog
                                                     Swal.fire({
                                                         title: 'Are you sure?',
                                                         text: "You will be logged out!",
@@ -270,7 +255,6 @@
                                                         confirmButtonText: 'Yes, logout!'
                                                     }).then((result) => {
                                                         if (result.isConfirmed) {
-                                                            // Submit the hidden form
                                                             document.getElementById('logout-form').submit();
                                                         }
                                                     });
@@ -283,9 +267,7 @@
                         </ul>
                     </div>
                 </nav>
-                <!-- End Navbar -->
             </div>
-
             @yield('content')
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             @if (session('success'))
@@ -298,37 +280,23 @@
                     });
                 </script>
             @endif
-
         <footer class="footer">
             <div class="container-fluid d-flex justify-content-between">
                 <nav class="pull-left">
                     <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://www.themekita.com">
-                                ThemeKita
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> Help </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> Licenses </a>
-                        </li>
                     </ul>
                 </nav>
                 <div class="copyright">
                     2024, made with <i class="fa fa-heart heart text-danger"></i> by
-                    <a href="http://www.themekita.com">ThemeKita</a>
+                    <a href="mailto:legendsmystic60@gmail.com" target="_blank">legendsmystic60@gmail.com</a>
                 </div>
                 <div>
-                    Distributed by
-                    <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
+                    Get in touch
+                    <a target="_blank" href="https://wa.me/6283835572912/">Akmal Rahmattullah Nugraha</a>.
                 </div>
             </div>
         </footer>
     </div>
-
-    <!-- Custom template | don't include it in your project! -->
     <div class="custom-template">
         <div class="title">Settings</div>
         <div class="custom-content">
@@ -389,42 +357,20 @@
             <i class="icon-settings"></i>
         </div>
     </div>
-    <!-- End Custom template -->
 </div>
-<!--   Core JS Files   -->
 <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
-
-<!-- jQuery Scrollbar -->
 <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
-
-<!-- Chart JS -->
 <script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
-
-<!-- jQuery Sparkline -->
 <script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
-
-<!-- Chart Circle -->
 <script src="{{ asset('assets/js/plugin/chart-circle/circles.min.js') }}"></script>
-
-<!-- Datatables -->
 <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
-
-<!-- Bootstrap Notify -->
 <script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-
-<!-- jQuery Vector Maps -->
 <script src="{{ asset('assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugin/jsvectormap/world.js') }}"></script>
-
-<!-- Sweet Alert -->
 <script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
-
-<!-- Kaiadmin JS -->
 <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
-
-<!-- Kaiadmin DEMO methods, don't include it in your project! -->
 <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
 <script src="{{ asset('assets/js/demo.js') }}"></script>
 

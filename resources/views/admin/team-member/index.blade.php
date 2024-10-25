@@ -77,10 +77,18 @@
                                                         <i class="fa fa-eye"></i>
                                                     </a>
 
-                                                    <form action="{{ route('team-members.destroy', ['team_id' => $members[0]->team_id, 'employee_id' => $members[0]->employee_id]) }}" method="POST">
+                                                    <form action="{{ route('team-members.edit', $members[0]->id) }}" method="GET" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" data-bs-toggle="tooltip" title="Edit Team Members"
+                                                                class="btn btn-link btn-primary btn-lg">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                    </form>
+
+                                                    <form action="{{ route('team-members.destroy', ['team_id' => $members[0]->team_id, 'employee_id' => $members[0]->employee_id]) }}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" data-bs-toggle="tooltip" title="Delete Team Member" class="btn btn-link btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">
+                                                        <button type="submit" data-bs-toggle="tooltip" title="Delete Team Member" class="btn btn-link btn-danger" onclick="confirmDelete('sure')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>

@@ -23,7 +23,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //admin
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth:users'])->group(function(){
     Route::get('/admin-dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('/admin-dashboard/employees', App\Http\Controllers\Admin\EmployeeController::class);
     Route::resource('/admin-dashboard/clients', App\Http\Controllers\Admin\ClientController::class);
@@ -45,10 +45,17 @@ Route::middleware(['auth:employees'])->group(function(){
     //team
     Route::get('/employee-dashboard/team', [App\Http\Controllers\employee\EmployeeController::class, 'team'])->name('employee.teams');
 
+
+    //notification
+    Route::get('/notifications', [App\Http\Controllers\admin\ProjectNotificationController::class, 'index'])->name('notifications.index');
+    Route::delete('/notifications/{id}', [App\Http\Controllers\admin\ProjectNotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::get('/notifications/{id}', [App\Http\Controllers\admin\ProjectNotificationController::class, 'show'])->name('notifications.show');
+
 });
 
-Route::middleware(['auth:clients'])->group(function(){
+
+//client
     Route::get('/client-dashboard', [App\Http\Controllers\client\ClientController::class, 'index'])->name('client.dashboard');
     //project
-    Route::get('/client-dashboard/project', [App\Http\Controllers\client\ClientController::class, 'project'])->name('client.project');
-});
+    Route::post('/client-dashboard', [App\Http\Controllers\client\ClientController::class, 'project'])->name('client.project');
+

@@ -37,8 +37,9 @@ class AuthController extends Controller
         foreach ($userTypes as $type => $model) {
             $user = $model::where('name', $credentials['name'])->first();
             if ($user && Hash::check($credentials['password'], $user->password)) {
+                // Admin menggunakan guard 'users'
                 if ($type === 'admin') {
-                    Auth::login($user);
+                    Auth::guard('users')->login($user); // Guard 'users' untuk admin
                     return redirect()->route('admin.dashboard');
                 } else {
                     Auth::guard($type . 's')->login($user);

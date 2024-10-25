@@ -14,7 +14,10 @@ class Project extends Model
 
     use HasFactory;
 
+    protected $keyType = 'string';
+
     protected $fillable = [
+        'id',
         'client_id',
         'name',
         'start_date',

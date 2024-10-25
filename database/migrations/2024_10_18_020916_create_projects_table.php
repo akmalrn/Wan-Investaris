@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->foreignId('client_id')->constrained('clients');
             $table->string('name');
             $table->date('start_date');

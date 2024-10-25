@@ -8,23 +8,34 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
         return view('client.index');
     }
 
-    public function project()
+    public function project(Request $request)
     {
-        // Ambil client yang sedang login
-        $client = auth()->user();
+        // Ambil project_id dari request jika ada
+        $projectId = $request->input('project_id');
 
-        // Ambil semua TeamMembers yang berhubungan dengan tim, proyek, dan client yang sedang login
-        $teamMembers = TeamMember::with(['team.leader', 'team.members.employee', 'team.project.client'])
-            ->whereHas('team.project.client', function ($query) use ($client) {
-                $query->where('id', $client->id); // Cocokkan client yang sedang login
-            })->get();
+        // Ambil semua TeamMembers yang berhubungan dengan tim, proyek, dan client
+        $teamMembers = TeamMember::with(['team.leader', 'team.members.employee', 'team.project.client']);
 
-        return view('client.project', compact('teamMembers'));
+        // Jika project_id ada, tambahkan filter berdasarkan project_id
+        if ($projectId) {
+            $teamMembers->whereHas('team.project', function ($query) use ($projectId) {
+                $query->where('id', $projectId); // Sesuaikan dengan nama kolom ID proyek di tabel projects
+            });
+        }
+
+        // Ambil hasil akhir
+        $teamMembers = $teamMembers->get();
+
+        return view('client.index', compact('teamMembers'));
     }
+
+
+
 
 }

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->constrained('teams')->onDelete('cascade');
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
+            $table->boolean('has_notification')->default(false); // Apakah ada notifikasi
+            $table->string('last_notification_message')->nullable(); // Pesan notifikasi terakhir
             $table->timestamps();
         });
     }
