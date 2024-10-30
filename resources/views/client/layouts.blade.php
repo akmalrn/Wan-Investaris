@@ -159,8 +159,8 @@
             <div class="container d-flex justify-content-center justify-content-md-between">
                 <div class="contact-info d-flex align-items-center">
                     <i class="bi bi-envelope d-flex align-items-center"><a
-                            href="mailto:contact@example.com">contact@example.com</a></i>
-                    <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+                            href="mailto:legendsmystic60@gmail.com" target="blank">legendsmystic60@gmail.com</a></i>
+                    <i class="bi bi-phone d-flex align-items-center ms-4"><span>+62 838 3557 2912</span></i>
                 </div>
                 <div class="social-links d-none d-md-flex align-items-center">
                     <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
@@ -344,7 +344,7 @@
                         <div class="footer-contact pt-3">
                             <p>Graha Nurul Menteng</p>
                             <p>Jl, Terapi Raya, RT.03/RW.19</p>
-                            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+                            <p class="mt-3"><strong>Phone:</strong> <span>+62 838 3557 2912</span></p>
                             <p><strong>Email:</strong> <span>info@example.com</span></p>
                         </div>
                         <div class="social-links d-flex mt-4">

@@ -1,5 +1,4 @@
 @extends('admin.layout')
-
 @section('content')
     <div class="container">
         <div class="page-inner">
@@ -21,7 +20,7 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Projects</a>
+                        <a href="#">Domains</a>
                     </li>
                 </ul>
             </div>
@@ -30,10 +29,10 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <h4 class="card-title">Project List</h4>
-                                <a href="{{ route('projects.create') }}" class="btn btn-primary btn-round ms-auto">
+                                <h4 class="card-title">Add Row</h4>
+                                <a href="{{ route('domains.create') }}" class="btn btn-primary btn-round ms-auto">
                                     <i class="fa fa-plus"></i>
-                                    Add Project
+                                    Add Domain
                                 </a>
                             </div>
                         </div>
@@ -43,59 +42,72 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Client</th>
-                                            <th>Project Name</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Status</th>
-                                            <th>Budget</th>
+                                            <th>Name</th>
+                                            <th>URL</th>
+                                            <th>Project</th>
+                                            <th>Registration Date</th>
+                                            <th>Expiration Date</th>
                                             <th style="width: 10%; text-align:center">Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Client</th>
-                                            <th>Project Name</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Status</th>
-                                            <th>Budget</th>
+                                            <th>Name</th>
+                                            <th>URL</th>
+                                            <th>Project</th>
+                                            <th>Registration Date</th>
+                                            <th>Expiration Date</th>
                                             <th style="width: 10%; text-align:center">Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($projects as $project)
+                                        @foreach ($domains as $domain)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $project->client->name ?? '-' }}</td>
-                                                <td>{{ $project->name }}</td>
-                                                <td>{{ $project->start_date }}</td>
-                                                <td>{{ $project->end_date }}</td>
-                                                <td>{{ ucfirst($project->status) }}</td>
-                                                <td>Rp. {{ number_format($project->budget, 2, ',', '.') }}</td>
+                                                <td>{{ $domain->name }}</td>
+                                                <td>{{ $domain->url }}</td>
+                                                <td>{{ $domain->project->name ?? '-' }}</td>
+                                                <td>{{ $domain->start_date ?? '-' }}</td>
+                                                <td class="
+                                                    @if ($domain->end_date)
+                                                        @if (now()->isPast($domain->end_date))
+                                                            bg-danger
+                                                        @elseif (now()->isToday($domain->end_date))
+                                                            bg-warning
+                                                        @else
+                                                            bg-success
+                                                        @endif
+                                                    @else
+                                                        bg-secondary
+                                                    @endif
+                                                ">
+                                                    {{ $domain->end_date ?? '-' }}
+                                                </td>
                                                 <td>
                                                     <div class="form-button-action">
-                                                        <a href="{{ route('projects.show', $project->id) }}"
-                                                           class="btn btn-link btn-info btn-lg" data-bs-toggle="tooltip"
-                                                           title="Show project" data-original-title="Show project">
+                                                        <!-- Tombol untuk Show domain -->
+                                                        <a href="{{ route('domains.show', $domain->id) }}"
+                                                            class="btn btn-link btn-info btn-lg" data-bs-toggle="tooltip"
+                                                            title="Show Domain">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
 
-                                                        <form action="{{ route('projects.edit', $project->id) }}"
-                                                              method="GET" style="display: inline;">
+                                                        <!-- Form untuk Edit domain -->
+                                                        <form action="{{ route('domains.edit', $domain->id) }}"
+                                                            method="GET" style="display: inline;">
                                                             @csrf
-                                                            <button type="submit" data-bs-toggle="tooltip" title=""
-                                                                    class="btn btn-link btn-primary btn-lg"
-                                                                    data-original-title="Edit project">
+                                                            <button type="submit" data-bs-toggle="tooltip" title="Edit Domain"
+                                                                class="btn btn-link btn-primary btn-lg">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
                                                         </form>
 
-                                                        <form id="delete-form-{{ $project->id }}" action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
+                                                        <!-- Form untuk Hapus domain -->
+                                                        <form id="delete-form-{{ $domain->id }}" action="{{ route('domains.destroy', $domain->id) }}" method="POST" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="button" data-bs-toggle="tooltip" title="Delete Project" class="btn btn-link btn-danger" onclick="confirmDelete({{ $project->id }})">
+                                                            <button type="button" data-bs-toggle="tooltip" title="Delete Domain" class="btn btn-link btn-danger" onclick="confirmDelete({{ $domain->id }})">
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
                                                         </form>

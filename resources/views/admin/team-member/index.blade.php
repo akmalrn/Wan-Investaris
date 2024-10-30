@@ -42,6 +42,7 @@
                             <table id="add-row" class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
+                                        <th>ID Project</th>
                                         <th>Team</th>
                                         <th>Leader</th>
                                         <th>Members</th>
@@ -51,6 +52,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>ID Projek</th>
                                         <th>Tim</th>
                                         <th>Pemimpin</th>
                                         <th>Anggota</th>
@@ -61,6 +63,7 @@
                                 <tbody>
                                     @foreach ($teamMembers->groupBy('team_id') as $teamId => $members)
                                         <tr>
+                                            <td>{{ $members[0]->team->project->id }}</td>
                                             <td>{{ $members[0]->team->name ?? '-' }}</td>
                                             <td>{{ $members[0]->team->leader->name ?? '-' }}</td>
                                             <td>

@@ -35,4 +35,9 @@ class Project extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function domains()
+    {
+        return $this->hasMany(Domain::class);
+    }
 }

@@ -43,6 +43,7 @@
                                 <table id="add-row" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Name</th>
                                             <th>Phone Number</th>
                                             <th>Contact Person</th>
@@ -52,6 +53,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>Nomor HP</th>
                                             <th>Kontak person</th>
@@ -62,6 +64,7 @@
                                     <tbody>
                                         @foreach ($clients as $client)
                                             <tr>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $client->name }}</td>
                                                 <td>
                                                     @if ($client->phone_number)

@@ -4,6 +4,7 @@ namespace App\Models\admin;
 
 use App\Models\admin\ProjectNotification;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -102,5 +103,10 @@ class TeamMember extends Model
     public function leader()
     {
         return $this->team->leader(); // Assumes 'leader' is a relationship in the Team model
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'employee_id');
     }
 }

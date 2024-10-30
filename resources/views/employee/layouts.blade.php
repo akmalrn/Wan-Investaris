@@ -45,6 +45,7 @@
     <!-- modernizr JS -->
     <script src="{{ asset('employee/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         .container {
@@ -290,10 +291,10 @@
                                 style="width: 200px"></a>
                     </div>
                 </div>
-                @if (Route::is('employee.dashboard', 'employee.project', 'employee.teams'))
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <div class="header-top-menu">
-                            <ul class="nav navbar-nav notika-top-nav">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="header-top-menu">
+                        <ul class="nav navbar-nav notika-top-nav">
+                            @if (Route::is('employee.dashboard', 'employee.project', 'employee.teams'))
                                 <li class="nav-item nc-al">
                                     <a href="" data-toggle="dropdown" role="button" aria-expanded="false"
                                         class="nav-link dropdown-toggle">
@@ -333,16 +334,72 @@
                                                     </a>
                                                 @endforeach
                                             @endif
-
                                         </div>
                                     </div>
+                                @else
+                            @endif
 
-                                </li>
-                            </ul>
-                        </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                    class="nav-link dropdown-toggle">
+                                    <span>
+                                        <h3>{{ auth()->user()->name }}</h3>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu message-dd chat-dd animated zoomIn">
+                                    <div class="hd-message-info">
+                                        <!-- Display the authenticated user's information -->
+                                        <a href="#">
+                                            <div class="hd-message-sn">
+                                                <div class="hd-message-img chat-img">
+                                                    <img src="{{ auth()->user()->profile_picture }}" alt="" />
+                                                    <!-- Assuming you have a profile picture -->
+                                                    <div class="chat-avaible"><i class="notika-icon notika-dot"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="hd-mg-ctn">
+                                                    <h3>{{ auth()->user()->name }}</h3>
+                                                    <p>Online</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                        <div class="hd-mg-va">
+                                            <a class="" href="#" id="logout-btn">Logout</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                            </form>
+                                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                            <script>
+                                                document.getElementById('logout-btn').addEventListener('click', function(event) {
+                                                    event.preventDefault();
+
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: "You will be logged out!",
+                                                        icon: 'warning',
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: '#3085d6',
+                                                        cancelButtonColor: '#d33',
+                                                        confirmButtonText: 'Yes, logout!'
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            document.getElementById('logout-form').submit();
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
                     </div>
-                @else
-                @endif
+                </div>
 
             </div>
         </div>
@@ -391,17 +448,15 @@
                                 href="{{ route('employee.dashboard') }}"><i class="notika-icon notika-house"></i>
                                 Home</a>
                         </li>
-                        <li class="{{ request()->routeIs('employee.project') ? 'active' : '' }}"><a
-                                href="{{ route('employee.project') }}"><i class="notika-icon notika-edit"></i>
-                                Project</a>
+                        <li><a data-toggle="tab" href="#Interface"><i class="notika-icon notika-edit"></i> Project</a>
                         </li>
                         <li class="{{ request()->routeIs('employee.teams') ? 'active' : '' }}"><a
                                 href="{{ route('employee.teams') }}"><i class="notika-icon notika-edit"></i>
                                 Teams</a>
                         </li>
                     </ul>
-                    {{-- <div class="tab-content custom-menu-content">
-                        <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
+                    <div class="tab-content custom-menu-content">
+                        {{-- <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
                                 <li><a href="index.html">Dashboard One</a>
                                 </li>
@@ -426,24 +481,16 @@
                                 <li><a href="compose-email.html">Compose Email</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div id="Interface" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
-                                <li><a href="animations.html">Animations</a>
+                                <li><a href="{{ route('employee.project.leader') }}">Project Leader</a>
                                 </li>
-                                <li><a href="google-map.html">Google Map</a>
-                                </li>
-                                <li><a href="data-map.html">Data Maps</a>
-                                </li>
-                                <li><a href="code-editor.html">Code Editor</a>
-                                </li>
-                                <li><a href="image-cropper.html">Images Cropper</a>
-                                </li>
-                                <li><a href="wizard.html">Wizard</a>
+                                <li><a href="{{ route('employee.project.member') }}">Project Member</a>
                                 </li>
                             </ul>
                         </div>
-                        <div id="Charts" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        {{-- <div id="Charts" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
                                 <li><a href="flot-charts.html">Flot Charts</a>
                                 </li>
@@ -512,8 +559,8 @@
                                 <li><a href="404.html">404 Page</a>
                                 </li>
                             </ul>
-                        </div>
-                    </div> --}}
+                        </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -941,8 +988,8 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="footer-copy-right">
-                        <p>Copyright © 2018
-                            . All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                        <p>Copyright © 2024
+                            . All rights reserved. WAN Teknologi <a href="https://wansolution.co.id/" target="blank">Internasional</a>.</p>
                     </div>
                 </div>
             </div>

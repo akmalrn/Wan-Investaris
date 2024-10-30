@@ -30,6 +30,7 @@ Route::middleware(['auth:users'])->group(function(){
     Route::resource('/admin-dashboard/projects', App\Http\Controllers\Admin\ProjectController::class);
     Route::resource('/admin-dashboard/teams', App\Http\Controllers\Admin\TeamController::class);
     Route::resource('/admin-dashboard/team-members', App\Http\Controllers\Admin\TeamMemberController::class);
+    Route::resource('/admin-dashboard/domains', App\Http\Controllers\Admin\DomainController::class);
     Route::delete('/admin-dasboard/team-members/{team_id}/{employee_id}', [App\Http\Controllers\Admin\TeamMemberController::class, 'destroy'])->name('team-members.destroy');
 
     // Route::resource('/admin-dashboard/project-team', App\Http\Controllers\Admin\ProjectTeamController::class);
@@ -39,7 +40,8 @@ Route::middleware(['auth:users'])->group(function(){
 Route::middleware(['auth:employees'])->group(function(){
     Route::get('/employee-dashboard', [App\Http\Controllers\employee\EmployeeController::class, 'index'])->name('employee.dashboard');
     //project
-    Route::get('/employee-dashboard/project', [App\Http\Controllers\employee\EmployeeController::class, 'project'])->name('employee.project');
+    Route::get('/employee-dashboard/project-leader', [App\Http\Controllers\employee\EmployeeController::class, 'projectLeader'])->name('employee.project.leader');
+    Route::get('/employee-dashboard/project-member', [App\Http\Controllers\employee\EmployeeController::class, 'projectMember'])->name('employee.project.member');
     Route::put('/employee-dashboard/project/{id}/update-status-ongoing', [App\Http\Controllers\employee\EmployeeController::class, 'updateStatusOngoing'])->name('project.updateStatusOngoing');
     Route::put('/employee-dashboard/project/{id}/update-status-completed', [App\Http\Controllers\employee\EmployeeController::class, 'updateStatusCompleted'])->name('project.updateStatusCompleted');
     //team

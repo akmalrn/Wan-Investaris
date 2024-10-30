@@ -33,9 +33,15 @@
                             <h4 class="card-title">Team Member Details</h4>
                         </div>
                         <div class="card-body">
-                            <div class="col-md">
-                                <label>Team Name:</label>
-                                <p class="mb-3">{{ $teamMember->team->name ?? '-' }}</p>
+                            <div class="row">
+                                <div class="col-md">
+                                    <label>Team Name:</label>
+                                    <p class="mb-3">{{ $teamMember->team->name ?? '-' }}</p>
+                                </div>
+                                <div class="col-md">
+                                    <label>ID Project:</label>
+                                    <p class="mb-3">{{ $teamMember->team->project->id ?? '-' }}</p>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md">

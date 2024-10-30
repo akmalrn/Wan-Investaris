@@ -9,12 +9,13 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('client')->get();
+        $projects = Project::with('client')->orderBy('created_at', 'desc')->get();
         $user = Auth::user();
         $employeesCount = Employee::count();
         $clientsCount = Client::count();
@@ -69,25 +70,15 @@ class ProjectController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Mengambil proyek terakhir untuk menentukan nomor berikutnya
-        $lastProject = Project::orderBy('created_at', 'desc')->first();
-        $nextId = 1;
+        $currentYear = date('Y');
+        $formattedId = 'PROJ' . $currentYear . ':' . Str::upper(Str::random(6));
 
-        if ($lastProject) {
-            // Ambil nomor terakhir dari id
-            $lastId = $lastProject->id;
-            $lastNumber = (int) substr($lastId, -6); // Ambil 6 digit terakhir
-            $nextId = $lastNumber + 1; // Tambahkan 1
+        while (Project::where('id', $formattedId)->exists()) {
+            $formattedId = 'PROJ' . $currentYear . ':' . Str::upper(Str::random(6));
         }
 
-        // Ambil tahun saat ini
-        $currentYear = date('Y'); // Mengambil tahun saat ini
-        // Format ID sesuai kebutuhan
-        $formattedId = 'PROJ' . $currentYear . ':' . str_pad($nextId, 6, '0', STR_PAD_LEFT); // Contoh: PROJ2024:000001
-
-        // Simpan proyek dengan ID terformat
         Project::create([
-            'id' => $formattedId, // Menyimpan ID terformat
+            'id' => $formattedId,
             'client_id' => $request->input('client_id'),
             'name' => $request->input('name'),
             'start_date' => $request->input('start_date'),
@@ -120,3 +111,4 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', 'Project deleted successfully.');
     }
 }
+    

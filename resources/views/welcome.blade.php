@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="shortcut icon" href="{{ asset('assets/img/Wan Logo.png') }}" type="image/x-icon">
     <style>
         body,
         html {
@@ -109,7 +110,7 @@
             <form class="login-form" action="{{ route('login') }}" method="POST">
                 @csrf
                 <img src="{{ asset('images/Wan.png') }}" alt="">
-                <h4>Masukan Email dan Password</h4>
+                <h4>Masukan Nama dan Password</h4>
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
@@ -134,7 +135,7 @@
             });
         </script>
     @endif
-    
+
 </body>
 
 </html>

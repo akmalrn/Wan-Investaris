@@ -36,8 +36,24 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLR0u4QQgQmFfXxL1iv1gkOTB4u4B6t2aOJhx3jxA7"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <!-- DataTables jQuery Plugin -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
 </head>
+<script>
+    $(document).ready(function() {
+        $('#add-row').DataTable({
+            "pageLength": 10 // Batasi hingga 10 baris per halaman
+        });
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -119,38 +135,51 @@
                             </span>
                             <h4 class="text-section">Components</h4>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('employees.index', 'employees.create', 'employees.edit') ? 'active' : '' }}">
+                        <li
+                            class="nav-item {{ request()->routeIs('employees.index', 'employees.create', 'employees.edit') ? 'active' : '' }}">
                             <a href="{{ route('employees.index') }}">
                                 <i class="fas fa-user-tie"></i>
                                 <p>Employee</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('clients.index', 'clients.create', 'clients.edit') ? 'active' : '' }}">
+                        <li
+                            class="nav-item {{ request()->routeIs('clients.index', 'clients.create', 'clients.edit') ? 'active' : '' }}">
                             <a href="{{ route('clients.index') }}">
                                 <i class="fas fa-handshake"></i>
                                 <p>Clients</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('projects.index', 'projects.create', 'projects.edit') ? 'active' : '' }}">
+                        <li
+                            class="nav-item {{ request()->routeIs('projects.index', 'projects.create', 'projects.edit') ? 'active' : '' }}">
                             <a href="{{ route('projects.index') }}">
                                 <i class="fas fa-tasks"></i>
                                 <p>Projects</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
+                        <li
+                            class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
                             <a href="{{ route('teams.index') }}">
                                 <i class="fas fa-user-friends"></i>
                                 <p>Teams</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('team-members.index', 'team-members.create', 'team-members.edit') ? 'active' : '' }}">
+                        <li
+                            class="nav-item {{ request()->routeIs('team-members.index', 'team-members.create', 'team-members.edit') ? 'active' : '' }}">
                             <a href="{{ route('team-members.index') }}">
                                 <i class="fas fa-users"></i>
                                 <p>Team Members</p>
+                                <span class="badge badge-success"></span>
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item {{ request()->routeIs('domains.index', 'domains.create', 'domains.edit') ? 'active' : '' }}">
+                            <a href="{{ route('domains.index') }}">
+                                <i class="fas fa-server"></i>
+                                <p>Domain</p>
                                 <span class="badge badge-success"></span>
                             </a>
                         </li>
@@ -229,8 +258,8 @@
                                                 </div>
                                                 <div class="u-text">
                                                     <h4>{{ auth()->user()->name }}</h4>
-                                                    <a href=""
-                                                        class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                                    <a href="" class="btn btn-xs btn-secondary btn-sm">View
+                                                        Profile</a>
                                                 </div>
                                             </div>
                                         </li>
@@ -279,129 +308,140 @@
                         confirmButtonText: "OK"
                     });
                 </script>
+            @elseif (session('error'))
+                <!-- Perbaikan di sini -->
+                <script>
+                    Swal.fire({
+                        title: "Error",
+                        text: "{{ session('error') }}",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                </script>
             @endif
-        <footer class="footer">
-            <div class="container-fluid d-flex justify-content-between">
-                <nav class="pull-left">
-                    <ul class="nav">
-                    </ul>
-                </nav>
-                <div class="copyright">
-                    2024, made with <i class="fa fa-heart heart text-danger"></i> by
-                    <a href="mailto:legendsmystic60@gmail.com" target="_blank">legendsmystic60@gmail.com</a>
+
+            <footer class="footer">
+                <div class="container-fluid d-flex justify-content-between">
+                    <nav class="pull-left">
+                        <ul class="nav">
+                        </ul>
+                    </nav>
+                    <div class="copyright">
+                        2024, made with <i class="fa fa-heart heart text-danger"></i> by
+                        <a href="mailto:legendsmystic60@gmail.com" target="_blank">legendsmystic60@gmail.com</a>
+                    </div>
+                    <div>
+                        Get in touch
+                        <a target="_blank" href="https://wa.me/6283835572912/">Akmal Rahmattullah Nugraha</a>.
+                    </div>
                 </div>
-                <div>
-                    Get in touch
-                    <a target="_blank" href="https://wa.me/6283835572912/">Akmal Rahmattullah Nugraha</a>.
+            </footer>
+        </div>
+        <div class="custom-template">
+            <div class="title">Settings</div>
+            <div class="custom-content">
+                <div class="switcher">
+                    <div class="switch-block">
+                        <h4>Logo Header</h4>
+                        <div class="btnSwitch">
+                            <button type="button" class="selected changeLogoHeaderColor" data-color="dark"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="blue"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="green"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
+                            <br />
+                            <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
+                        </div>
+                    </div>
+                    <div class="switch-block">
+                        <h4>Navbar Header</h4>
+                        <div class="btnSwitch">
+                            <button type="button" class="changeTopBarColor" data-color="dark"></button>
+                            <button type="button" class="changeTopBarColor" data-color="blue"></button>
+                            <button type="button" class="changeTopBarColor" data-color="purple"></button>
+                            <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
+                            <button type="button" class="changeTopBarColor" data-color="green"></button>
+                            <button type="button" class="changeTopBarColor" data-color="orange"></button>
+                            <button type="button" class="changeTopBarColor" data-color="red"></button>
+                            <button type="button" class="selected changeTopBarColor" data-color="white"></button>
+                            <br />
+                            <button type="button" class="changeTopBarColor" data-color="dark2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="blue2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="purple2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="green2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="orange2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="red2"></button>
+                        </div>
+                    </div>
+                    <div class="switch-block">
+                        <h4>Sidebar</h4>
+                        <div class="btnSwitch">
+                            <button type="button" class="changeSideBarColor" data-color="white"></button>
+                            <button type="button" class="selected changeSideBarColor" data-color="dark"></button>
+                            <button type="button" class="changeSideBarColor" data-color="dark2"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
-    </div>
-    <div class="custom-template">
-        <div class="title">Settings</div>
-        <div class="custom-content">
-            <div class="switcher">
-                <div class="switch-block">
-                    <h4>Logo Header</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="selected changeLogoHeaderColor" data-color="dark"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="blue"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="green"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
-                        <br />
-                        <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
-                    </div>
-                </div>
-                <div class="switch-block">
-                    <h4>Navbar Header</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="changeTopBarColor" data-color="dark"></button>
-                        <button type="button" class="changeTopBarColor" data-color="blue"></button>
-                        <button type="button" class="changeTopBarColor" data-color="purple"></button>
-                        <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
-                        <button type="button" class="changeTopBarColor" data-color="green"></button>
-                        <button type="button" class="changeTopBarColor" data-color="orange"></button>
-                        <button type="button" class="changeTopBarColor" data-color="red"></button>
-                        <button type="button" class="selected changeTopBarColor" data-color="white"></button>
-                        <br />
-                        <button type="button" class="changeTopBarColor" data-color="dark2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="blue2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="purple2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="green2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="orange2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="red2"></button>
-                    </div>
-                </div>
-                <div class="switch-block">
-                    <h4>Sidebar</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="changeSideBarColor" data-color="white"></button>
-                        <button type="button" class="selected changeSideBarColor" data-color="dark"></button>
-                        <button type="button" class="changeSideBarColor" data-color="dark2"></button>
-                    </div>
-                </div>
+            <div class="custom-toggle">
+                <i class="icon-settings"></i>
             </div>
         </div>
-        <div class="custom-toggle">
-            <i class="icon-settings"></i>
-        </div>
     </div>
-</div>
-<script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
-<script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/chart-circle/circles.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/jsvectormap/world.js') }}"></script>
-<script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
-<script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
-<script src="{{ asset('assets/js/setting-demo.js') }}"></script>
-<script src="{{ asset('assets/js/demo.js') }}"></script>
+    <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/chart-circle/circles.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/jsvectormap/world.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
+    <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
+    <script src="{{ asset('assets/js/demo.js') }}"></script>
 
-<script>
-    $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#177dff",
-        fillColor: "rgba(23, 125, 255, 0.14)",
-    });
+    <script>
+        $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#177dff",
+            fillColor: "rgba(23, 125, 255, 0.14)",
+        });
 
-    $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#f3545d",
-        fillColor: "rgba(243, 84, 93, .14)",
-    });
+        $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#f3545d",
+            fillColor: "rgba(243, 84, 93, .14)",
+        });
 
-    $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#ffa534",
-        fillColor: "rgba(255, 165, 52, .14)",
-    });
-</script>
+        $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#ffa534",
+            fillColor: "rgba(255, 165, 52, .14)",
+        });
+    </script>
 </body>
 
 </html>

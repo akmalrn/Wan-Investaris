@@ -25,7 +25,6 @@
                 </ul>
             </div>
             <div class="row">
-
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -38,11 +37,11 @@
                             </div>
                         </div>
                         <div class="card-body">
-
                             <div class="table-responsive">
                                 <table id="add-row" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Name</th>
                                             <th>Position</th>
                                             <th>Status</th>
@@ -51,8 +50,9 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Posisi</th>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
                                             <th>Status</th>
                                             <th style="width: 10%; text-align:center">Action</th>
                                         </tr>
@@ -60,18 +60,19 @@
                                     <tbody>
                                         @foreach ($employees as $employee)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $employee->name }}</td>
                                             <td>{{ $employee->position }}</td>
                                             <td>{{ $employee->status }}</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-link btn-info btn-lg" data-bs-toggle="tooltip" title="Show employee" data-original-title="Show employee">
+                                                    <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-link btn-info btn-lg" data-bs-toggle="tooltip" title="Show employee">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
 
                                                     <form action="{{ route('employees.edit', $employee->id) }}" method="GET" style="display: inline;">
                                                         @csrf
-                                                        <button type="submit" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit employee">
+                                                        <button type="submit" class="btn btn-link btn-primary btn-lg" data-bs-toggle="tooltip" title="Edit employee">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
                                                     </form>
@@ -79,7 +80,7 @@
                                                     <form id="delete-form-{{ $employee->id }}" action="{{ route('employees.destroy', $employee->id) }}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" data-bs-toggle="tooltip" title="Remove" class="btn btn-link btn-danger" onclick="confirmDelete({{ $employee->id }})">
+                                                        <button type="button" class="btn btn-link btn-danger" onclick="confirmDelete({{ $employee->id }})" data-bs-toggle="tooltip" title="Remove">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>
